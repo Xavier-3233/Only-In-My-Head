@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Project598
 {
@@ -8,10 +10,16 @@ namespace Project598
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
+        private Vector2 _brickPosition;
+        private Texture2D _TestBrick;
+        private Effect _grayscaleEffect;
+        private Effect _testing;
+        //private GrayShader grayShader;
 
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
+            _graphics.GraphicsProfile = GraphicsProfile.HiDef;
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
         }
@@ -19,13 +27,22 @@ namespace Project598
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-
+            _brickPosition = new Vector2((_graphics.GraphicsDevice.Viewport.Width - 32) / 2, (_graphics.GraphicsDevice.Viewport.Height - 32) / 2);
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
+            _TestBrick = Content.Load<Texture2D>("Brick");
+
+            if (_TestBrick == null)
+            {
+                Console.WriteLine("Texture not loaded!");
+            }
+            Console.WriteLine("Hello");
+            _grayscaleEffect = Content.Load<Effect>("GrayscaleEffect");
+            _testing = Content.Load<Effect>("Test");
 
             // TODO: use this.Content to load your game content here
         }
@@ -35,6 +52,8 @@ namespace Project598
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
+
+
             // TODO: Add your update logic here
 
             base.Update(gameTime);
@@ -43,7 +62,23 @@ namespace Project598
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
+            Matrix view = Matrix.Identity;
 
+            int width = GraphicsDevice.Viewport.Width;
+            int height = GraphicsDevice.Viewport.Height;
+            Matrix projection = Matrix.CreateOrthographicOffCenter(0, width, height, 0, 0, 1);
+
+            _testing.Parameters["view_projection"].SetValue(view * projection);
+
+            _spriteBatch.Begin(effect: _testing);
+            _spriteBatch.Draw(_TestBrick, new Vector2(0, 0), Color.White);
+            _spriteBatch.End();
+            //_spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, _grayscaleEffect);
+            //grayShader.Apply(_spriteBatch);
+            // _spriteBatch.Begin();
+            //  _spriteBatch.Draw(_TestBrick, _brickPosition, Color.Red);
+            //grayShader.End(_spriteBatch);
+            // _spriteBatch.End();
             // TODO: Add your drawing code here
 
             base.Draw(gameTime);

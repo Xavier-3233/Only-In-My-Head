@@ -8,6 +8,12 @@ namespace Project598
 {
     public class MentalCondition
     {
+        private enum MentalState
+        {
+            Normal,
+            Depressed
+        }
+
 
     }
 }

@@ -8,5 +8,6 @@ namespace Project598
 {
     public class Player
     {
+
     }
 }
