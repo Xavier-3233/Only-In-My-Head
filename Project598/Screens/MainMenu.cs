@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,9 @@ namespace Project598.Screens
 
         List<MenuOption> options;
 
+        private int screenIndex = 0;
+
+
         public MainMenu()
         {
 
@@ -21,11 +25,13 @@ namespace Project598.Screens
 
         public override void Activate()
         {
+            if (_content == null) _content = new ContentManager(ScreenManager.Game.Services, "Content");
             options = new List<MenuOption>()
             {
                 new MenuOption("Start", new Credits()) {IsSelected = true},
                 new MenuOption("Credits", new Credits()) {IsSelected = true }
             };
+
         }
 
         public override void Unload()
@@ -43,7 +49,7 @@ namespace Project598.Screens
             }
         }
 
-        /*public override void HandleInput(GameTime gameTime, InputManager input)
+        public override void HandleInput(GameTime gameTime, InputManager input)
         {
             if (input.Escape)
             {
@@ -71,7 +77,7 @@ namespace Project598.Screens
             }
 
         }
-
+        
         public override void Draw(GameTime gameTime)
         {
             ScreenManager.GraphicsDevice.Clear(Color.Black);
@@ -79,30 +85,20 @@ namespace Project598.Screens
             var spriteBatch = ScreenManager.SpriteBatch;
 
             spriteBatch.Begin();
-
-            string currentText = "The Game Dev Experience";
-            Vector2 size = FontText.SizeOf(currentText, "PublicPixelLarge");
-            FontText.DrawString(spriteBatch, "PublicPixelLarge", new Vector2(width / 2 - size.X / 2, 20), Color.LimeGreen, currentText);
+            spriteBatch.DrawString(FontManager.DefaultFont, "Hi!", new Vector2(200, 200), Color.White);
+            
 
             int i = 0;
             foreach (MenuOption option in options)
             {
-                size = FontText.SizeOf(option.Name, "PublicPixelMedium");
-                option.Draw(spriteBatch, new Vector2(width / 2 - size.X / 2, height / 2 - (options.Count * (size.Y + 50) / 2) + i * (size.Y + 50)));
+                //size = FontText.SizeOf(option.Name, "PublicPixelMedium");
+                option.Draw(spriteBatch, new Vector2(240, (200 * i * 2)));
+                //spriteBatch.DrawString(FontManager.DefaultFont, option.Name, new Vector2(200, 200 + (i * 50)), Color.White);
                 i++;
+                
             }
-
-            /*
-            currentText = "Select Song";
-            size = FontText.SizeOf(currentText, "PublicPixelMedium");
-            FontText.DrawString(spriteBatch, "PublicPixelMedium", new Vector2(width / 2 - size.X / 2, (height - size.Y) / 2), Color.LimeGreen, currentText);
-            */
-
-        // currentText = "Exit: ESC or Back";
-        // size = FontText.SizeOf(currentText, "PublicPixel");
-        // FontText.DrawString(spriteBatch, "PublicPixel", new Vector2(width / 2 - size.X / 2, height - size.Y - 20), Color.LimeGreen, currentText);
-
-        // spriteBatch.End();
-        //  }*///
+            spriteBatch.End();
+            
+        }
     }
 }

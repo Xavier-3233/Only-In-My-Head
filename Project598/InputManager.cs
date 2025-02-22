@@ -22,6 +22,8 @@ namespace Project598
 
         public bool Escape { get; private set; } = false;
 
+        public bool A { get; private set; } = false;
+
         public bool Right { get; private set; } = false;
 
         public bool Left { get; private set; } = false;
@@ -43,6 +45,12 @@ namespace Project598
 
             Escape = currentGamePadState.Buttons.Back == ButtonState.Pressed && previousGamePadState.Buttons.Back == ButtonState.Released
                 || currentKeyboardState.IsKeyDown(Keys.Escape) && !previousKeyboardState.IsKeyDown(Keys.Escape);
+
+            A = currentGamePadState.Buttons.A == ButtonState.Pressed && previousGamePadState.Buttons.A == ButtonState.Released
+                || currentKeyboardState.IsKeyDown(Keys.A) && !previousKeyboardState.IsKeyDown(Keys.A);
+
+           // B = currentGamePadState.Buttons.B == ButtonState.Pressed && previousGamePadState.Buttons.B == ButtonState.Released
+             //   || currentKeyboardState.IsKeyDown(BButtonKey) && !previousKeyboardState.IsKeyDown(BButtonKey);
         }
     }
 }

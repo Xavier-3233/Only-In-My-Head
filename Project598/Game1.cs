@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Project598.Screens;
 using System;
 using static System.Net.Mime.MediaTypeNames;
 
@@ -14,6 +15,7 @@ namespace Project598
         private Texture2D _TestBrick;
         private Effect _grayscaleEffect;
         private Effect _testing;
+        private ScreenManager _screenManager;
         //private GrayShader grayShader;
 
         public Game1()
@@ -22,6 +24,10 @@ namespace Project598
             _graphics.GraphicsProfile = GraphicsProfile.HiDef;
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
+            _screenManager = new ScreenManager(this);
+            Components.Add(_screenManager);
+
+            _screenManager.AddScreen(new MainMenu());
         }
 
         protected override void Initialize()
@@ -35,14 +41,10 @@ namespace Project598
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             _TestBrick = Content.Load<Texture2D>("Brick");
-
-            if (_TestBrick == null)
-            {
-                Console.WriteLine("Texture not loaded!");
-            }
-            Console.WriteLine("Hello");
             _grayscaleEffect = Content.Load<Effect>("GrayscaleEffect");
             _testing = Content.Load<Effect>("Test");
+            FontManager.LoadContent(Content);
+            //_font = Content.Load<SpriteFont>("NothingYouCouldDo");
 
             // TODO: use this.Content to load your game content here
         }
@@ -71,6 +73,7 @@ namespace Project598
             _testing.Parameters["view_projection"].SetValue(view * projection);
 
             _spriteBatch.Begin(effect: _testing);
+            _spriteBatch.DrawString(FontManager.DefaultFont, "Seymour!", new Vector2((width / 2), height / 2), Color.Black);
             _spriteBatch.Draw(_TestBrick, new Vector2(0, 0), Color.White);
             _spriteBatch.End();
             //_spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, _grayscaleEffect);

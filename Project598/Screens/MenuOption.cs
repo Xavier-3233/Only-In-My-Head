@@ -1,19 +1,19 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Project598.Screens
 {
-    public class MenuOption
+    public class MenuOption 
     {
         public string Name = "";
 
-        GameScreen Screen;
+        public GameScreen Screen;
 
         public Keys Key;
 
@@ -32,7 +32,8 @@ namespace Project598.Screens
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position)
         {
-
+            Color color = IsSelected ? Color.White : Color.LimeGreen;
+            spriteBatch.DrawString(FontManager.DefaultFont, Name, position, color);
         }
     }
 }
