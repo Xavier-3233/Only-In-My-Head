@@ -63,6 +63,13 @@ namespace Project598
 
         protected override void Draw(GameTime gameTime)
         {
+
+            GraphicsDevice.Clear(Color.CornflowerBlue);
+
+            // Let the ScreenManager handle drawing the active screen
+            _screenManager.Draw(gameTime);
+            //_screenManager.Draw(gameTime);
+            /*
             GraphicsDevice.Clear(Color.CornflowerBlue);
             Matrix view = Matrix.Identity;
 
@@ -75,7 +82,7 @@ namespace Project598
             _spriteBatch.Begin(effect: _testing);
             _spriteBatch.DrawString(FontManager.DefaultFont, "Seymour!", new Vector2((width / 2), height / 2), Color.Black);
             _spriteBatch.Draw(_TestBrick, new Vector2(0, 0), Color.White);
-            _spriteBatch.End();
+            _spriteBatch.End();*/
             //_spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, _grayscaleEffect);
             //grayShader.Apply(_spriteBatch);
             // _spriteBatch.Begin();

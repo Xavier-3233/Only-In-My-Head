@@ -24,6 +24,10 @@ namespace Project598
 
         public bool A { get; private set; } = false;
 
+        public bool B { get; private set; } = false;
+
+        public bool C { get; private set; } = false;
+
         public bool Right { get; private set; } = false;
 
         public bool Left { get; private set; } = false;
@@ -49,8 +53,10 @@ namespace Project598
             A = currentGamePadState.Buttons.A == ButtonState.Pressed && previousGamePadState.Buttons.A == ButtonState.Released
                 || currentKeyboardState.IsKeyDown(Keys.A) && !previousKeyboardState.IsKeyDown(Keys.A);
 
-           // B = currentGamePadState.Buttons.B == ButtonState.Pressed && previousGamePadState.Buttons.B == ButtonState.Released
-             //   || currentKeyboardState.IsKeyDown(BButtonKey) && !previousKeyboardState.IsKeyDown(BButtonKey);
+            B = currentGamePadState.Buttons.B == ButtonState.Pressed && previousGamePadState.Buttons.B == ButtonState.Released
+                || currentKeyboardState.IsKeyDown(Keys.B) && !previousKeyboardState.IsKeyDown(Keys.B);
+
+            C = currentKeyboardState.IsKeyDown(Keys.C) && !previousKeyboardState.IsKeyDown(Keys.C);
         }
     }
 }

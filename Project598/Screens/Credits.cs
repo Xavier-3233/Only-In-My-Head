@@ -45,15 +45,18 @@ namespace Project598.Screens
                 ScreenManager.Game.Exit();
             }
 
-            if (input.A)
+            if (input.B)
             {
-                ScreenManager.RemoveScreen(this);
+                //ScreenManager.AddScreen(new MainMenu())
+                ExitScreen();
+                //GameScreen[] dumb = ScreenManager.GetScreens();
+               // int a = dumb.Length;
             }
             
         }
         public override void Draw(GameTime gameTime)
         {
-            ScreenManager.GraphicsDevice.Clear(Color.Yellow);
+            ScreenManager.GraphicsDevice.Clear(Color.Green);
             var spritebatch = ScreenManager.SpriteBatch;
             spritebatch.Begin();
             spritebatch.DrawString(FontManager.DefaultFont, "Credits?", new Vector2(240, 300), Color.AliceBlue);

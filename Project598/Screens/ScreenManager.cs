@@ -105,6 +105,7 @@ namespace Project598.Screens
 
             _screens.Remove(screen);
             _tempScreens.Remove(screen);
+
         }
 
         public GameScreen[] GetScreens()

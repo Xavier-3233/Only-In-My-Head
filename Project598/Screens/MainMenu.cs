@@ -60,8 +60,14 @@ namespace Project598.Screens
                 if (options[screenIndex].IsScreenSelection)
                 {
                     ScreenManager.AddScreen(options[screenIndex].Screen);
-                    ScreenManager.RemoveScreen(this);
+                    GameScreen[] mm = ScreenManager.GetScreens();
+                    int a = mm.Length;
+
                 }
+            }
+            if (input.C)
+            {
+                ScreenManager.AddScreen(new WorldScreen());
             }
             if ((input.Up || input.Left) && screenIndex > 0)
             {

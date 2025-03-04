@@ -42,7 +42,7 @@ namespace Project598.Screens
             if (IsExiting) ScreenManager.RemoveScreen(this);
             else if (covered)
             {
-                ScreenState = ScreenState.Hidden;
+                ScreenState = ScreenState.Active;
             }
         }
 
