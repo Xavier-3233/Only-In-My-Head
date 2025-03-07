@@ -27,6 +27,8 @@ namespace Project598
             _screenManager = new ScreenManager(this);
             Components.Add(_screenManager);
 
+            _graphics.PreferredBackBufferHeight = 640;
+            _graphics.PreferredBackBufferWidth = 960;
             _screenManager.AddScreen(new MainMenu());
         }
 

@@ -31,6 +31,7 @@ namespace Project598.Screens
                 new MenuOption("Start", new Credits()) {IsSelected = true},
                 new MenuOption("Credits", new Credits()) {IsSelected = true }
             };
+            
 
         }
 
