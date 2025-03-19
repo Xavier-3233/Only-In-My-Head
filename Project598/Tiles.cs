@@ -95,6 +95,7 @@ namespace Project598
                 }
             }
             spriteBatch.Draw(_a, new Rectangle((int)position.X, (int)position.Y, 32, 32), Color.White);
+            //Lets hope this works!
         }
     }
 }
