@@ -22,6 +22,9 @@ namespace Project598
 
         Texture2D _a;
 
+        TileSetData _set1;
+        TileMapData _map1;
+
 
         Rectangle[] _tiles;
 
@@ -33,6 +36,8 @@ namespace Project598
         {
             _filename = filename;
             position = new Vector2((32 * 8), (32 * 4));
+            _set1 = new TileSetData("GrassArea.tsj");
+            _map1 = new TileMapData("Town.json");
         }
 
         public void LoadContent(ContentManager content)
@@ -81,11 +86,13 @@ namespace Project598
             }
             _a = content.Load<Texture2D>("Brick");
             //_tileHeight = data.height;
+            _set1.LoadContent(content);
+            _map1.LoadContent(content);
         }
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            for(int i = 0; i < _mapWidth; i++)
+            /*for(int i = 0; i < _mapWidth; i++)
             {
                 for(int j = 0; j < _mapHeight; j++)
                 {
@@ -95,7 +102,29 @@ namespace Project598
                 }
             }
             spriteBatch.Draw(_a, new Rectangle((int)position.X, (int)position.Y, 32, 32), Color.White);
-            //Lets hope this works!
+            //Lets hope this works!*/
+            Texture2D tileTexture;
+            for (int i = 0; i < _map1.width; i++)
+            {
+                for(int j = 0; j < _map1.height; j++)
+                {
+                    //int index = j * _map1.width + i;
+                    _set1.idTextures.TryGetValue(_map1._data[j, i], out tileTexture);
+                    if (tileTexture != null)
+                    {
+                        spriteBatch.Draw(tileTexture, new Vector2(i * 32, j * 32), Color.White);
+                    }
+                    
+                }
+            }
+        }
+
+        public void GetTilePosition(int index, int mapWidth)
+        {
+            int row = index / mapWidth;  // Calculate the row
+            int column = index % mapWidth;  // Calculate the column
+
+            //Console.WriteLine($"Tile at index {index} is at Row: {row}, Column: {column}");
         }
     }
 }

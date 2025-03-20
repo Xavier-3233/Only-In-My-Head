@@ -25,6 +25,33 @@
 /processorParam:TextureFormat=Color
 /build:Brick.png
 
+#begin FenceUp.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:FenceUp.png
+
+#begin Grass (1).png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Grass (1).png
+
+#begin GrassArea.tsj
+/copy:GrassArea.tsj
+
 #begin GrassMap.txt
 /copy:GrassMap.txt
 
@@ -45,6 +72,42 @@
 /processor:EffectProcessor
 /processorParam:DebugMode=Auto
 /build:GrayscaleEffect.fx;GrayScaleEffect.fx
+
+#begin House-1.png (1).png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:House-1.png (1).png
+
+#begin House-2.png (1).png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:House-2.png (1).png
+
+#begin HouseBackSide.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:HouseBackSide.png
 
 #begin NothingYouCouldDo.spritefont
 /importer:FontDescriptionImporter
@@ -154,4 +217,7 @@
 /processor:EffectProcessor
 /processorParam:DebugMode=Auto
 /build:Test.fx
+
+#begin Town.json
+/copy:Town.json
 

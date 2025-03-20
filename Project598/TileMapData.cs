@@ -1,8 +1,12 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework.Content;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+using System.IO;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Project598
 {
@@ -10,14 +14,60 @@ namespace Project598
     {
         public int compressionLevel;
         public int height { get; set; }
-        bool infinite;
-        List<int> data;
-        int nextLayerid;
-        int nextObjectid;
-        string orientation;
-        string renderoder;
-        int tileHeight;
-        int tileWidth;
+        public int width { get; set; }
 
+        public int[,] _data { get; set; }
+
+        
+        public int tileheight;
+        public int tilewidth;
+        private string sourceTileSet;
+        private string sourceMap;
+        private string _filename;
+        //public List<Tile>
+
+
+        public TileMapData(string filename)
+        {
+            _filename = filename;
+        }
+        public void LoadContent(ContentManager content)
+        {
+            string dataMap = File.ReadAllText(Path.Join(content.RootDirectory, _filename));
+            var tilemapData = JsonConvert.DeserializeObject<MapData>(dataMap);
+
+            var firstLayer = tilemapData.layers[0];
+            int index;
+            _data = new int[tilemapData.height, tilemapData.width];
+            for(int i = 0; i < firstLayer.height; i++)
+            {
+                for(int j = 0; j < firstLayer.width; j++)
+                {
+                    index = i * firstLayer.width + j;
+                    _data[i, j] = firstLayer.data[index];
+                }
+            }
+            
+
+            height = tilemapData.height;
+
+            width = tilemapData.width;
+        }
+
+        public class MapLayer
+        {
+            public int[] data { get; set; }
+            public int height { get; set; }
+
+            public int width { get; set; }
+        }
+
+        public class MapData
+        {
+            public List<MapLayer> layers { get; set; }
+            public int width { get; set; }
+
+            public int height { get; set; }
+        }
     }
 }
