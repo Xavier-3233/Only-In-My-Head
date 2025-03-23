@@ -36,10 +36,6 @@ namespace Project598
             string dataSet = File.ReadAllText(Path.Join(content.RootDirectory, _filename));
             var tilesetData = JsonConvert.DeserializeObject<TileSetData>(dataSet);
 
-            foreach (var tile in tilesetData._tiles)
-            {
-                Console.WriteLine($"Tile ID: {tile.id}, Image: {tile.image}, Height: {tile.imageheight}, Width: {tile.imagewidth}");
-            }
 
             _tiles = tilesetData._tiles;
 

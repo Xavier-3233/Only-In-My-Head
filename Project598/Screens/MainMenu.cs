@@ -68,7 +68,7 @@ namespace Project598.Screens
             }
             if (input.C)
             {
-                ScreenManager.AddScreen(new WorldScreen());
+                ScreenManager.AddScreen(new WorldScreen(input));
             }
             if ((input.Up || input.Left) && screenIndex > 0)
             {

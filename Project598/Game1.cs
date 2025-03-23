@@ -79,7 +79,7 @@ namespace Project598
             int height = GraphicsDevice.Viewport.Height;
             Matrix projection = Matrix.CreateOrthographicOffCenter(0, width, height, 0, 0, 1);
 
-            _testing.Parameters["view_projection"].SetValue(view * projection);
+            _testing.Parameters["view_projection"].SetValue(view * projection);m 
 
             _spriteBatch.Begin(effect: _testing);
             _spriteBatch.DrawString(FontManager.DefaultFont, "Seymour!", new Vector2((width / 2), height / 2), Color.Black);

@@ -12,7 +12,7 @@ using Microsoft.Xna.Framework;
 
 namespace Project598
 {
-    public class Tiles
+    public class Maps
     {
         int _tileWidth, _tileHeight, _mapWidth, _mapHeight;
 
@@ -22,8 +22,10 @@ namespace Project598
 
         Texture2D _a;
 
-        TileSetData _set1;
+        TileSetData _set;
         TileMapData _map1;
+        TileSetData _set2;
+        TileMapData _map2;
 
 
         Rectangle[] _tiles;
@@ -32,17 +34,31 @@ namespace Project598
 
         string _filename;
 
-        public Tiles(string filename)
+        string _tilesetname;
+
+        
+
+        /*public Maps(string filename)
         {
             _filename = filename;
             position = new Vector2((32 * 8), (32 * 4));
-            _set1 = new TileSetData("GrassArea.tsj");
-            _map1 = new TileMapData("Town.json");
+            _set = new TileSetData("GrassArea.tsj");
+            _map1 = new TileMapData("GrassArea.json");
+            //_set2 = new TileSetData("T")
+            _map2 = new TileMapData("Town.json");
+        }*/
+
+        public Maps(string filename, TileSetData set)
+        {
+            _filename = filename;
+            _set = set;
+            _map1 = new TileMapData(filename);
+
         }
 
         public void LoadContent(ContentManager content)
         {
-            string data = File.ReadAllText(Path.Join(content.RootDirectory, _filename));
+            /*string data = File.ReadAllText(Path.Join(content.RootDirectory, _filename));
             var lines = data.Split('\n');
 
             var name = lines[0].Trim();
@@ -83,11 +99,12 @@ namespace Project598
                     _map[j, i] = int.Parse(row[j]);
                 }
 
-            }
+            }*/
             _a = content.Load<Texture2D>("Brick");
             //_tileHeight = data.height;
-            _set1.LoadContent(content);
+            //_set1.LoadContent(content);
             _map1.LoadContent(content);
+            //_map2.LoadContent(content);
         }
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -109,7 +126,7 @@ namespace Project598
                 for(int j = 0; j < _map1.height; j++)
                 {
                     //int index = j * _map1.width + i;
-                    _set1.idTextures.TryGetValue(_map1._data[j, i], out tileTexture);
+                    _set.idTextures.TryGetValue(_map1._data[j, i], out tileTexture);
                     if (tileTexture != null)
                     {
                         spriteBatch.Draw(tileTexture, new Vector2(i * 32, j * 32), Color.White);

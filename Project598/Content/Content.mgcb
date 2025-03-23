@@ -49,6 +49,9 @@
 /processorParam:TextureFormat=Color
 /build:Grass (1).png
 
+#begin GrassArea.json
+/copy:GrassArea.json
+
 #begin GrassArea.tsj
 /copy:GrassArea.tsj
 
@@ -211,6 +214,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:sprite_lll4.png
+
+#begin Test_Person-1.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Test_Person-1.png
 
 #begin Test.fx
 /importer:EffectImporter

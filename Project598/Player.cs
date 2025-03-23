@@ -1,4 +1,8 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +12,34 @@ namespace Project598
 {
     public class Player
     {
+        private KeyboardState keyboardState;
+        private KeyboardState previous;
+        private Texture2D _texture;
+        public Vector2 Position { get; set; }
 
+        public int HP = 50;
+
+        public int strength = 10;
+
+        public int magic = 3;
+
+        public decimal money = 30.00M;
+
+
+        public void LoadContent(ContentManager content)
+        {
+            _texture = content.Load<Texture2D>("Test_Person-1");
+
+        }
+
+        public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(_texture, Position, Color.White);
+        }
+
+        public void Move(Vector2 direction)
+        {
+            Position += direction * 32;
+        }
     }
 }
