@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-//using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,18 +22,18 @@ namespace Project598
         Texture2D _a;
 
         TileSetData _set;
-        TileMapData _map1;
-        TileSetData _set2;
-        TileMapData _map2;
+        TileMapData _mapData;
 
 
         Rectangle[] _tiles;
 
-        int[,] _map;
+        //int[,] _map;
 
         string _filename;
 
         string _tilesetname;
+
+        public List<NPC> NPCs { get; private set; } = new List<NPC>();
 
         
 
@@ -52,8 +51,8 @@ namespace Project598
         {
             _filename = filename;
             _set = set;
-            _map1 = new TileMapData(filename);
-
+            _mapData = new TileMapData(filename);
+            
         }
 
         public void LoadContent(ContentManager content)
@@ -101,10 +100,9 @@ namespace Project598
 
             }*/
             _a = content.Load<Texture2D>("Brick");
-            //_tileHeight = data.height;
-            //_set1.LoadContent(content);
-            _map1.LoadContent(content);
-            //_map2.LoadContent(content);
+            _mapData.LoadContent(content);
+
+
         }
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -121,12 +119,12 @@ namespace Project598
             spriteBatch.Draw(_a, new Rectangle((int)position.X, (int)position.Y, 32, 32), Color.White);
             //Lets hope this works!*/
             Texture2D tileTexture;
-            for (int i = 0; i < _map1.width; i++)
+            for (int i = 0; i < _mapData.Width; i++)
             {
-                for(int j = 0; j < _map1.height; j++)
+                for(int j = 0; j < _mapData.Height; j++)
                 {
                     //int index = j * _map1.width + i;
-                    _set.idTextures.TryGetValue(_map1._data[j, i], out tileTexture);
+                    _set.idTextures.TryGetValue(_mapData.Data[j, i], out tileTexture);
                     if (tileTexture != null)
                     {
                         spriteBatch.Draw(tileTexture, new Vector2(i * 32, j * 32), Color.White);
@@ -134,14 +132,23 @@ namespace Project598
                     
                 }
             }
+            foreach (NPC npc in NPCs)
+            {
+                npc.Draw(gameTime, spriteBatch);
+            }
         }
 
-        public void GetTilePosition(int index, int mapWidth)
+        public int GetTileNumber(int x, int y)
         {
-            int row = index / mapWidth;  // Calculate the row
-            int column = index % mapWidth;  // Calculate the column
+            return _mapData.Data[y / 32, x / 32];
 
             //Console.WriteLine($"Tile at index {index} is at Row: {row}, Column: {column}");
+        }
+
+        public void AddNPC(NPC npc)
+        {
+            
+            NPCs.Add(npc);
         }
     }
 }

@@ -25,6 +25,8 @@ namespace Project598
 
         public decimal money = 30.00M;
 
+        public MentalCondition Mental { get; set; } = MentalCondition.Normal;
+
 
         public void LoadContent(ContentManager content)
         {

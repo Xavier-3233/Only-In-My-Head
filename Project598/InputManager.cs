@@ -36,6 +36,12 @@ namespace Project598
 
         public bool Down { get; private set; } = false;
 
+        public bool Q { get; private set; } = false;
+
+        public bool E { get; private set; } = false;
+
+        public bool Enter { get; private set; } = false;
+
         public void Update(GameTime gameTime)
         {
             previousMouseState = currentMouseState;
@@ -65,6 +71,12 @@ namespace Project598
             Up = currentKeyboardState.IsKeyDown(Keys.Up) && !previousKeyboardState.IsKeyDown(Keys.Up);
 
             Down = currentKeyboardState.IsKeyDown(Keys.Down) && !previousKeyboardState.IsKeyDown(Keys.Down);
+
+            Q = currentKeyboardState.IsKeyDown(Keys.Q) && !previousKeyboardState.IsKeyDown(Keys.Q);
+
+            E = currentKeyboardState.IsKeyDown(Keys.E) && !previousKeyboardState.IsKeyDown(Keys.E);
+
+            Enter = currentKeyboardState.IsKeyDown(Keys.Enter) && !previousKeyboardState.IsKeyDown(Keys.Enter);
         }
     }
 }

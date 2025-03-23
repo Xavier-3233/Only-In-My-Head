@@ -6,14 +6,9 @@ using System.Threading.Tasks;
 
 namespace Project598
 {
-    public class MentalCondition
+    public enum MentalCondition
     {
-        private enum MentalState
-        {
-            Normal,
-            Depressed
-        }
-
-
+        Normal,
+        Depressed
     }
 }

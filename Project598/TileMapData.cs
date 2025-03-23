@@ -13,10 +13,10 @@ namespace Project598
     public class TileMapData
     {
         public int compressionLevel;
-        public int height { get; set; }
-        public int width { get; set; }
+        public int Height { get; set; }
+        public int Width { get; set; }
 
-        public int[,] _data { get; set; }
+        public int[,] Data { get; set; }
 
         
         public int tileheight;
@@ -38,20 +38,20 @@ namespace Project598
 
             var firstLayer = tilemapData.layers[0];
             int index;
-            _data = new int[tilemapData.height, tilemapData.width];
+            Data = new int[tilemapData.height, tilemapData.width];
             for(int i = 0; i < firstLayer.height; i++)
             {
                 for(int j = 0; j < firstLayer.width; j++)
                 {
                     index = i * firstLayer.width + j;
-                    _data[i, j] = firstLayer.data[index];
+                    Data[i, j] = firstLayer.data[index];
                 }
             }
             
 
-            height = tilemapData.height;
+            Height = tilemapData.height;
 
-            width = tilemapData.width;
+            Width = tilemapData.width;
         }
 
         public class MapLayer

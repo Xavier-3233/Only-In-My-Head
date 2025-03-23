@@ -1,22 +1,39 @@
 ﻿using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static Project598.TileMapData;
+using Microsoft.Xna.Framework.Graphics;
+using System.Runtime.CompilerServices;
 
 namespace Project598.Screens
 {
-    public class BattleScreen : GameScreen
+    public class DialogueScreen : GameScreen
     {
         private ContentManager _content;
+
+        private Texture2D _box;
+
+        private Texture2D _depressedBox;
+
+        private NPC _npc;
+
+        private Player _player;
+
+        public DialogueScreen(Player player, NPC npc)
+        {
+            _player = player;
+            _npc = npc;
+        }
         public override void Activate()
         {
             if (_content == null) _content = new ContentManager(ScreenManager.Game.Services, "Content");
 
+            
+            _box = _content.Load<Texture2D>("Dialogue_Box_Normal");
+            _depressedBox = _content.Load<Texture2D>("Dialogue_Box_Distorted");
         }
 
         public override void Unload()
@@ -38,7 +55,7 @@ namespace Project598.Screens
         {
             if (input.Enter)
             {
-                //Unload();
+                Unload();
                 ScreenManager.RemoveScreen(this);
             }
 
@@ -50,13 +67,13 @@ namespace Project598.Screens
 
         public override void Draw(GameTime gameTime)
         {
-            ScreenManager.GraphicsDevice.Clear(Color.Blue);
+            //ScreenManager.GraphicsDevice.Clear(Color.);
 
             var spriteBatch = ScreenManager.SpriteBatch;
-            //List<string> temp;
+            List<string> temp;
             spriteBatch.Begin();
-            spriteBatch.DrawString(FontManager.DefaultFont, "Insert Combat Here", new Vector2(480, 320), Color.White);
-            /*if (_player.Mental == MentalCondition.Depressed)
+
+            if (_player.Mental == MentalCondition.Depressed)
             {
                 temp = _npc.Dialogue.GetDialogue()["Depressed"];
                 string format = WrapText(FontManager.DefaultFont, temp[0], 600);
@@ -69,15 +86,37 @@ namespace Project598.Screens
                 string format = WrapText(FontManager.DefaultFont, temp[0], 600);
                 spriteBatch.Draw(_box, new Vector2(180, 0), Color.White);
                 spriteBatch.DrawString(FontManager.DefaultFont, format, new Vector2(200, 20), Color.White);
-            }*/
-
-
-
-
-
+            }
+            
+            
+   
 
             spriteBatch.End();
 
+        }
+        private string WrapText(SpriteFont font, string text, float maxWidth)
+        {
+            string[] words = text.Split(' ');
+            StringBuilder wrappedText = new StringBuilder();
+            float lineWidth = 0;
+            float spaceWidth = font.MeasureString(" ").X;
+
+            foreach (string word in words)
+            {
+                Vector2 size = font.MeasureString(word);
+
+                // Check if adding the word exceeds the maxWidth
+                if (lineWidth + size.X > maxWidth)
+                {
+                    wrappedText.Append("\n"); // New line
+                    lineWidth = 0;
+                }
+
+                wrappedText.Append(word + " ");
+                lineWidth += size.X + spaceWidth;
+            }
+
+            return wrappedText.ToString();
         }
     }
 }
