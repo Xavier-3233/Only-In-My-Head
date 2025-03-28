@@ -13,6 +13,17 @@ namespace Project598.Screens
     public class BattleScreen : GameScreen
     {
         private ContentManager _content;
+
+        private Enemy _enemy;
+
+        private Player _player;
+
+        public BattleScreen(Player player, Enemy enemy)
+        {
+            _player = player;
+            _enemy = enemy;
+        }
+
         public override void Activate()
         {
             if (_content == null) _content = new ContentManager(ScreenManager.Game.Services, "Content");

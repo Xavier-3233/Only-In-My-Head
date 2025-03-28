@@ -113,7 +113,8 @@ namespace Project598.Screens
                 if (roll == 4 && _timer <= 10)
                 {
                     battle = true;
-                    ScreenManager.AddScreen(new BattleScreen());
+                    Enemy enemy = new Slime();
+                    ScreenManager.AddScreen(new BattleScreen(_player, enemy));
                 }
             }
             _timer += 1;
