@@ -13,8 +13,8 @@ namespace Project598
         GamePadState previousGamePadState;
         GamePadState currentGamePadState;
 
-        KeyboardState previousKeyboardState;
-        KeyboardState currentKeyboardState;
+        KeyboardState _previousKeyboardState;
+        KeyboardState _currentKeyboardState;
 
         MouseState previousMouseState;
         MouseState currentMouseState;
@@ -50,33 +50,33 @@ namespace Project598
             previousGamePadState = currentGamePadState;
             currentGamePadState = GamePad.GetState(0);
 
-            previousKeyboardState = currentKeyboardState;
-            currentKeyboardState = Keyboard.GetState();
+            _previousKeyboardState = _currentKeyboardState;
+            _currentKeyboardState = Keyboard.GetState();
 
             Escape = currentGamePadState.Buttons.Back == ButtonState.Pressed && previousGamePadState.Buttons.Back == ButtonState.Released
-                || currentKeyboardState.IsKeyDown(Keys.Escape) && !previousKeyboardState.IsKeyDown(Keys.Escape);
+                || _currentKeyboardState.IsKeyDown(Keys.Escape) && !_previousKeyboardState.IsKeyDown(Keys.Escape);
 
             A = currentGamePadState.Buttons.A == ButtonState.Pressed && previousGamePadState.Buttons.A == ButtonState.Released
-                || currentKeyboardState.IsKeyDown(Keys.A) && !previousKeyboardState.IsKeyDown(Keys.A);
+                || _currentKeyboardState.IsKeyDown(Keys.A) && !_previousKeyboardState.IsKeyDown(Keys.A);
 
             B = currentGamePadState.Buttons.B == ButtonState.Pressed && previousGamePadState.Buttons.B == ButtonState.Released
-                || currentKeyboardState.IsKeyDown(Keys.B) && !previousKeyboardState.IsKeyDown(Keys.B);
+                || _currentKeyboardState.IsKeyDown(Keys.B) && !_previousKeyboardState.IsKeyDown(Keys.B);
 
-            C = currentKeyboardState.IsKeyDown(Keys.C) && !previousKeyboardState.IsKeyDown(Keys.C);
+            C = _currentKeyboardState.IsKeyDown(Keys.C) && !_previousKeyboardState.IsKeyDown(Keys.C);
 
-            Left = currentKeyboardState.IsKeyDown(Keys.Left) && !previousKeyboardState.IsKeyDown(Keys.Left);
+            Left = _currentKeyboardState.IsKeyDown(Keys.Left) && !_previousKeyboardState.IsKeyDown(Keys.Left);
 
-            Right = currentKeyboardState.IsKeyDown(Keys.Right) && !previousKeyboardState.IsKeyDown(Keys.Right);
+            Right = _currentKeyboardState.IsKeyDown(Keys.Right) && !_previousKeyboardState.IsKeyDown(Keys.Right);
 
-            Up = currentKeyboardState.IsKeyDown(Keys.Up) && !previousKeyboardState.IsKeyDown(Keys.Up);
+            Up = _currentKeyboardState.IsKeyDown(Keys.Up) && !_previousKeyboardState.IsKeyDown(Keys.Up);
 
-            Down = currentKeyboardState.IsKeyDown(Keys.Down) && !previousKeyboardState.IsKeyDown(Keys.Down);
+            Down = _currentKeyboardState.IsKeyDown(Keys.Down) && !_previousKeyboardState.IsKeyDown(Keys.Down);
 
-            Q = currentKeyboardState.IsKeyDown(Keys.Q) && !previousKeyboardState.IsKeyDown(Keys.Q);
+            Q = _currentKeyboardState.IsKeyDown(Keys.Q) && !_previousKeyboardState.IsKeyDown(Keys.Q);
 
-            E = currentKeyboardState.IsKeyDown(Keys.E) && !previousKeyboardState.IsKeyDown(Keys.E);
+            E = _currentKeyboardState.IsKeyDown(Keys.E) && !_previousKeyboardState.IsKeyDown(Keys.E);
 
-            Enter = currentKeyboardState.IsKeyDown(Keys.Enter) && !previousKeyboardState.IsKeyDown(Keys.Enter);
+            Enter = _currentKeyboardState.IsKeyDown(Keys.Enter) && !_previousKeyboardState.IsKeyDown(Keys.Enter);
         }
     }
 }

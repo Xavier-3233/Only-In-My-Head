@@ -18,16 +18,20 @@ namespace Project598.Screens
 
         private Player _player;
 
-        public BattleScreen(Player player, Enemy enemy)
+        private Effect _shader;
+
+        public BattleScreen(Player player, Enemy enemy, Effect shader)
         {
             _player = player;
             _enemy = enemy;
+            _shader = shader;
         }
 
         public override void Activate()
         {
             if (_content == null) _content = new ContentManager(ScreenManager.Game.Services, "Content");
-
+            _enemy.LoadContent(_content);
+            
         }
 
         public override void Unload()
@@ -61,12 +65,22 @@ namespace Project598.Screens
 
         public override void Draw(GameTime gameTime)
         {
-            ScreenManager.GraphicsDevice.Clear(Color.Blue);
+            ScreenManager.GraphicsDevice.Clear(Color.Black);
 
             var spriteBatch = ScreenManager.SpriteBatch;
             //List<string> temp;
-            spriteBatch.Begin();
-            spriteBatch.DrawString(FontManager.DefaultFont, "Insert Combat Here", new Vector2(480, 320), Color.White);
+            if (_player.Mental == MentalCondition.Depressed)
+            {
+                spriteBatch.Begin(effect: _shader);
+                _enemy.Draw(gameTime, spriteBatch);
+            }
+            else
+            {
+                spriteBatch.Begin();
+                _enemy.Draw(gameTime, spriteBatch);
+            }
+            
+            //spriteBatch.DrawString(FontManager.DefaultFont, "Insert Combat Here", new Vector2(480, 320), Color.White);
             /*if (_player.Mental == MentalCondition.Depressed)
             {
                 temp = _npc.Dialogue.GetDialogue()["Depressed"];

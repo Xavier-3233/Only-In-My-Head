@@ -15,11 +15,11 @@ namespace Project598.Screens
     {
         private ContentManager _content;
 
-        private Maps _tiles;
+        //private Maps _tiles;
 
         private Maps _currentMap;
 
-        private TileSetData _setData;
+        //private TileSetData _setData;
 
         private Effect _shader;
 
@@ -43,7 +43,7 @@ namespace Project598.Screens
         {
             _player = new Player();
 
-            _setData = new TileSetData("GrassArea.tsj");
+           // _setData = new TileSetData("GrassArea.tsj");
         }
 
         public override void Activate()
@@ -109,12 +109,13 @@ namespace Project598.Screens
 
             if(_currentMap == _maps["Field"] && _maps["Field"].GetTileNumber((int)_player.Position.X, (int)_player.Position.Y) == 1)
             {
-                int roll = RNG.GetInt(1, 5);
-                if (roll == 4 && _timer <= 10)
+                int roll = RNG.GetInt(1, 10);
+                if (roll == 9 && _timer >= 100)
                 {
                     battle = true;
                     Enemy enemy = new Slime();
-                    ScreenManager.AddScreen(new BattleScreen(_player, enemy));
+                    ScreenManager.AddScreen(new BattleScreen(_player, enemy, _shader));
+                    _timer = 0;
                 }
             }
             _timer += 1;

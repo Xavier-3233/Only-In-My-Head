@@ -13,7 +13,7 @@ namespace Project598.Screens
     {
         private ContentManager _content;
 
-        List<MenuOption> options;
+        private List<MenuOption> options;
 
         private int screenIndex = 0;
 

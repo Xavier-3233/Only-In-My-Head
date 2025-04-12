@@ -15,7 +15,7 @@ namespace Project598
         private KeyboardState keyboardState;
         private KeyboardState previous;
         private Texture2D _texture;
-        public Vector2 Position { get; set; }
+        public Vector2 Position { get; set; } = new Vector2(0, 13 * 32);
 
         public int HP = 50;
 

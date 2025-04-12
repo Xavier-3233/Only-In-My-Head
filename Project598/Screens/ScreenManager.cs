@@ -16,14 +16,14 @@ namespace Project598.Screens
         List<GameScreen> _screens = new List<GameScreen>();
         List<GameScreen> _tempScreens = new List<GameScreen>();
 
-        ContentManager content;
-        InputManager input = new InputManager();
+        ContentManager _content;
+        InputManager _input = new InputManager();
 
         bool isInitialized = false;
 
         public ScreenManager(Game game) : base(game)
         {
-            content = new ContentManager(game.Services, "Content");
+            _content = new ContentManager(game.Services, "Content");
         }
 
         public override void Initialize()
@@ -52,7 +52,7 @@ namespace Project598.Screens
 
         public override void Update(GameTime gameTime)
         {
-            input.Update(gameTime);
+            _input.Update(gameTime);
 
             _tempScreens.Clear();
             _tempScreens.AddRange(_screens);
@@ -71,7 +71,7 @@ namespace Project598.Screens
                 {
                     if (!unfocused)
                     {
-                        screen.HandleInput(gameTime, input);
+                        screen.HandleInput(gameTime, _input);
                         unfocused = true;
                     }
 

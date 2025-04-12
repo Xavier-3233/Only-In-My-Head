@@ -33,8 +33,8 @@ namespace Project598
         {
             var temp = new Dictionary<string, List<string>>
             {
-                { "Normal", new List<string> { "Welcome! Take a look around!", "Having trouble finding something you want?"} },
-                { "Depressed", new List<string> { "Oh.....It's you.", "Still here?"} },
+                { "Normal", new List<string> { "Welcome, Traveler!", "Having trouble finding something you want?"} },
+                { "Depressed", new List<string> { "Oh.....Another Traveler.......", "Still here?"} },
 
             };
             Dialogue = new Dialogue(temp);

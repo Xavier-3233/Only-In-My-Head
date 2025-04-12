@@ -12,6 +12,9 @@ namespace Project598
     public abstract class Enemy
     {
         protected Texture2D Texture { get; set; }
+
+        protected Vector2 Position { get; set; }
+
         protected int HP { get; set; } 
 
         protected int Strength { get; set; }
