@@ -97,6 +97,7 @@ namespace Project598.Screens
 
             if (isInitialized) screen.Activate();
             _screens.Add(screen);
+
         }
 
         public void RemoveScreen(GameScreen screen)

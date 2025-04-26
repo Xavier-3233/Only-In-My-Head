@@ -17,15 +17,19 @@ namespace Project598
         private Texture2D _texture;
         public Vector2 Position { get; set; } = new Vector2(0, 13 * 32);
 
-        public int HP = 50;
+        public int HP { get; set; } = 50;
 
-        public int strength = 10;
+        public int Strength { get; set; } = 10;
 
-        public int magic = 3;
+        public int Defense { get; set; } = 10;
 
-        public decimal money = 30.00M;
+        public int Magic { get; set; } = 10;
+
+        public decimal Money { get; set; } = 30.00M;
 
         public MentalCondition Mental { get; set; } = MentalCondition.Normal;
+
+        public int DepressedMeter { get; set; } = 0; 
 
 
         public void LoadContent(ContentManager content)

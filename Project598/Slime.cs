@@ -13,23 +13,29 @@ namespace Project598
     {
         private const float ANIMATION_SPEED = 0.5f;
 
+        private const float HIT_DURATION = 1f;
+
         private Texture2D _texture;
 
         private int _timer = 0;
 
-        public bool Hit { get; set; }
-
         private double _animationTimer;
 
         private int _animationFrame;
+
+        private bool _pause = false;
+
+        private double _pauseTimer;
+
         public Slime()
         {
             HP = 20;
-            Strength = 7;
+            Strength = 10;
             Magic = 7;
             Defense = 5;
             Money = 20.00M;
-            Position = new Vector2(480 - 32, 320 - 32);
+            Position = new Vector2(480 - 32, 220 - 32);
+            Hit = false;
         }
 
         public override void LoadContent(ContentManager content)
@@ -44,13 +50,27 @@ namespace Project598
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            _animationTimer += gameTime.ElapsedGameTime.TotalSeconds;
-
-            if (_animationTimer > ANIMATION_SPEED)
+            if (!_pause)
             {
-                _animationFrame++;
-                if (_animationFrame >= 2) _animationFrame = 0;
-                _animationTimer -= ANIMATION_SPEED;
+                _animationTimer += gameTime.ElapsedGameTime.TotalSeconds;
+
+                if (_animationTimer > ANIMATION_SPEED)
+                {
+                    _animationFrame++;
+                    if (_animationFrame >= 2) _animationFrame = 0;
+                    _animationTimer -= ANIMATION_SPEED;
+                }
+
+
+            }
+            else
+            {
+                _pauseTimer += gameTime.ElapsedGameTime.TotalSeconds;
+                if (_pauseTimer >= HIT_DURATION)
+                {
+                    _pause = false;
+                    _pauseTimer = 0;
+                }
             }
 
             int currentRow = _animationFrame / 2;
@@ -59,13 +79,15 @@ namespace Project598
             var source = new Rectangle(currentColumn * 32, currentRow * 32, 32, 32);
             if (Hit)
             {
-                _animationFrame = 3;
+                _animationFrame = 2;
+                _pause = true;
                 Hit = false;
             }
-            if (HP == 0)
+            if (HP <= 0)
             {
-                _animationFrame = 4;
-                if (_timer >= 3)
+                _animationFrame = 3;
+                _pause = true;
+                if (_pauseTimer >= HIT_DURATION)
                 {
                     return;
                 }

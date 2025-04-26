@@ -25,6 +25,8 @@ namespace Project598
 
         protected Decimal Money { get; set; }
 
+        public bool Hit { get; set; }
+
         public int GetHP()
         {
             return HP;
@@ -43,6 +45,11 @@ namespace Project598
         public int GetDefense()
         {
             return Defense;
+        }
+
+        public decimal GetMoney()
+        {
+            return Money;
         }
 
         public void SetHP(int hp)

@@ -35,6 +35,8 @@ namespace Project598.Screens
 
         private int _timer = 0;
 
+        private bool _inBattle = false;
+
         //private Dictionary<string, List<NPC>> _npcs;
 
         //private List<>
@@ -42,6 +44,8 @@ namespace Project598.Screens
         public WorldScreen(InputManager input)
         {
             _player = new Player();
+
+            //IsActive = true;
 
            // _setData = new TileSetData("GrassArea.tsj");
         }
@@ -95,16 +99,20 @@ namespace Project598.Screens
         {
             base.Update(gameTime, unfocused, covered);
 
-            if (IsActive)
-            {
-
-            }
+            
 
             if(_player.Position.X >= 960)
             {
                 _currentMap = _maps["Town"];
                 
                 _player.Position = new Vector2(0, _player.Position.Y);
+            }
+
+            if(_currentMap == _maps["Town"] && _player.Position.X < 0)
+            {
+                _currentMap = _maps["Field"];
+
+                _player.Position = new Vector2(928, _player.Position.Y);
             }
 
             if(_currentMap == _maps["Field"] && _maps["Field"].GetTileNumber((int)_player.Position.X, (int)_player.Position.Y) == 1)
@@ -114,11 +122,16 @@ namespace Project598.Screens
                 {
                     battle = true;
                     Enemy enemy = new Slime();
-                    ScreenManager.AddScreen(new BattleScreen(_player, enemy, _shader));
+                    ScreenManager.AddScreen(new BattleScreen(_player, enemy, _shader, () => battle = false));
                     _timer = 0;
+
                 }
             }
-            _timer += 1;
+            if (!battle)
+            {
+                _timer += 1;
+            }
+            
         }
 
         public override void HandleInput(GameTime gameTime, InputManager input)

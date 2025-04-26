@@ -29,7 +29,7 @@ namespace Project598
 
             _graphics.PreferredBackBufferHeight = 640;
             _graphics.PreferredBackBufferWidth = 960;
-            _screenManager.AddScreen(new WorldScreen(new InputManager()));
+            _screenManager.AddScreen(new MainMenu());
         }
 
         protected override void Initialize()
