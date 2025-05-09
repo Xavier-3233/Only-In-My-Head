@@ -169,7 +169,7 @@ namespace Project598.Screens
                             int flee = RNG.GetInt(0, 10);
                             if (flee >= 5)
                             {
-                                _player.DepressedMeter += 20;
+                                _player.DepressedMeter = 20;
                                 Exit();
                             }
                             break;

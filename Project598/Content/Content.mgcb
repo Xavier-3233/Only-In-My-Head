@@ -109,6 +109,18 @@
 /processorParam:TextureFormat=Color
 /build:Flee_Button.png
 
+#begin Goofy_HatGuy.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Goofy_HatGuy.png
+
 #begin Grass (1).png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -215,6 +227,18 @@
 /processorParam:TextureFormat=Compressed
 /build:NothingYouCouldDo.spritefont
 
+#begin ShopKeeper.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:ShopKeeper.png
+
 #begin SlimeSheet.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -226,6 +250,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:SlimeSheet.png
+
+#begin Some_Dude.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Some_Dude.png
 
 #begin sprite_dr20.png
 /importer:TextureImporter

@@ -29,7 +29,24 @@ namespace Project598
 
         public MentalCondition Mental { get; set; } = MentalCondition.Normal;
 
-        public int DepressedMeter { get; set; } = 0; 
+        private int _depressedMeter = 0;
+
+        public int DepressedMeter
+        {
+            get
+            {
+                return _depressedMeter;
+            }
+            set
+            {
+                _depressedMeter += value;
+                //_depressedMeter 
+                if (_depressedMeter >= 100)
+                {
+                    Mental = MentalCondition.Depressed;
+                }
+            }
+        } 
 
 
         public void LoadContent(ContentManager content)

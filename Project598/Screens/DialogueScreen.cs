@@ -22,6 +22,10 @@ namespace Project598.Screens
 
         private Player _player;
 
+        private bool _rolled = false;
+
+        private int textOption = 0;
+
         public DialogueScreen(Player player, NPC npc)
         {
             _player = player;
@@ -57,6 +61,7 @@ namespace Project598.Screens
             {
                 Unload();
                 ScreenManager.RemoveScreen(this);
+                _rolled = false;
             }
 
             /*if (input.C)
@@ -71,19 +76,38 @@ namespace Project598.Screens
 
             var spriteBatch = ScreenManager.SpriteBatch;
             List<string> temp;
+            
+            if (!_rolled)
+            {
+                textOption = RNG.GetInt(0, 3);
+                _rolled = true;
+            }
             spriteBatch.Begin();
 
-            if (_player.Mental == MentalCondition.Depressed)
+            if (_npc.Encourager)
+            {
+                temp = _npc.Dialogue.GetDialogue()["Encouragement"];
+                string format = WrapText(FontManager.DefaultFont, temp[textOption], 600);
+                spriteBatch.Draw(_box, new Vector2(180, 0), Color.White);
+                spriteBatch.DrawString(FontManager.DefaultFont, format, new Vector2(200, 20), Color.Aqua);
+                if (_player.Mental == MentalCondition.Depressed)
+                {
+                    _player.Mental = MentalCondition.Normal;
+                    _player.DepressedMeter = -_player.DepressedMeter;
+                }
+            }
+            else if (_player.Mental == MentalCondition.Depressed)
             {
                 temp = _npc.Dialogue.GetDialogue()["Depressed"];
-                string format = WrapText(FontManager.DefaultFont, temp[0], 600);
+                string format = WrapText(FontManager.DefaultFont, temp[textOption], 600);
                 spriteBatch.Draw(_depressedBox, new Vector2(180, 0), Color.White);
                 spriteBatch.DrawString(FontManager.DefaultFont, format, new Vector2(200, 20), Color.Red);
             }
+            
             else
             {
                 temp = _npc.Dialogue.GetDialogue()["Normal"];
-                string format = WrapText(FontManager.DefaultFont, temp[0], 600);
+                string format = WrapText(FontManager.DefaultFont, temp[textOption], 600);
                 spriteBatch.Draw(_box, new Vector2(180, 0), Color.White);
                 spriteBatch.DrawString(FontManager.DefaultFont, format, new Vector2(200, 20), Color.White);
             }
@@ -106,7 +130,7 @@ namespace Project598.Screens
                 Vector2 size = font.MeasureString(word);
 
                 // Check if adding the word exceeds the maxWidth
-                if (lineWidth + size.X > maxWidth)
+                if (lineWidth + size.X > maxWidth - 10)
                 {
                     wrappedText.Append("\n"); // New line
                     lineWidth = 0;

@@ -66,7 +66,10 @@ namespace Project598.Screens
                 {"Town",  new Maps("Town.json", _sets["Grass"]) }
             };
 
-            _maps["Town"].AddNPC(new NPC("James", new Vector2(32 * 8, 32 * 9), "Town"));
+            _maps["Town"].AddNPC(new NPC("James", new Vector2(32 * 8, 32 * 9), "Town", "Brick", false));
+            _maps["Town"].AddNPC(new NPC("Derek", new Vector2(32 * 8, 32 * 4), "Town", "Goofy_HatGuy", false));
+            _maps["Town"].AddNPC(new NPC("Bob", new Vector2(32 * 14, 32 * 4), "Town", "Some_Dude", false));
+            _maps["Town"].AddNPC(new NPC("Luck", new Vector2(32 * 20, 32 * 5), "Town", "ShopKeeper", true));
             
             //_tiles = new Maps("GrassMap.txt");
             _currentMap = _maps["Field"];
@@ -162,10 +165,12 @@ namespace Project598.Screens
                 if (_player.Mental == MentalCondition.Normal)
                 {
                     _player.Mental = MentalCondition.Depressed;
+                    _player.DepressedMeter = 100 - _player.DepressedMeter; 
                 }
                 else
                 {
                     _player.Mental = MentalCondition.Normal;
+                    _player.DepressedMeter = -_player.DepressedMeter;
                 }
             }
 
@@ -212,12 +217,14 @@ namespace Project598.Screens
                 spriteBatch.Begin(effect: _shader);
                 _currentMap.Draw(gameTime, ScreenManager.SpriteBatch);
                 _player.Draw(gameTime, ScreenManager.SpriteBatch);
+                spriteBatch.DrawString(FontManager.DefaultFont, $"DepressedMeter: {_player.DepressedMeter}", new Vector2(width / 2, height / 2), Color.Red);
             }
             else
             {
                 spriteBatch.Begin();
                 _currentMap.Draw(gameTime, ScreenManager.SpriteBatch);
                 _player.Draw(gameTime, ScreenManager.SpriteBatch);
+                spriteBatch.DrawString(FontManager.DefaultFont, $"DepressedMeter: {_player.DepressedMeter}", new Vector2(width * (3/4), height * (3/4)), Color.Red);
                 /*foreach (var npc in _currentMap.NPCs)
                 {
                     if (Vector2.Distance(_player.Position, npc.Position) <= 32) // 1-tile range
