@@ -1,0 +1,4 @@
+﻿All the artwork creating in this game was created by Keenan Melton
+
+NothingYouCouldDo.spritefont: Creation/design of Kimberly Geswein 
+Used under the Open Font License
