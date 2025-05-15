@@ -12,8 +12,8 @@ namespace Project598
 {
     public class Player
     {
-        private KeyboardState keyboardState;
-        private KeyboardState previous;
+        //private KeyboardState keyboardState;
+        //private KeyboardState previous;
         private Texture2D _texture;
         public Vector2 Position { get; set; } = new Vector2(0, 13 * 32);
 
@@ -28,6 +28,8 @@ namespace Project598
         public decimal Money { get; set; } = 30.00M;
 
         public MentalCondition Mental { get; set; } = MentalCondition.Normal;
+
+        public bool Hit { get; set; } = false;
 
         private int _depressedMeter = 0;
 

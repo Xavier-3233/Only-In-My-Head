@@ -70,6 +70,7 @@ namespace Project598
                 {
                     _pause = false;
                     _pauseTimer = 0;
+                    Hit = false;
                 }
             }
 
@@ -81,7 +82,7 @@ namespace Project598
             {
                 _animationFrame = 2;
                 _pause = true;
-                Hit = false;
+                
             }
             if (HP <= 0)
             {

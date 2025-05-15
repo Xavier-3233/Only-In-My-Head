@@ -12,7 +12,7 @@ namespace Project598
 {
     public class TileMapData
     {
-        public int compressionLevel;
+        //public int compressionLevel;
         public int Height { get; set; }
         public int Width { get; set; }
 

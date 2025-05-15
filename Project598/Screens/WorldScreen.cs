@@ -31,11 +31,11 @@ namespace Project598.Screens
 
         private Dictionary<string, TileSetData> _sets;
 
-        private bool battle = false;
+        private bool _battle = false;
 
         private int _timer = 0;
 
-        private bool _inBattle = false;
+        //private bool _inBattle = false;
 
         //private Dictionary<string, List<NPC>> _npcs;
 
@@ -123,14 +123,14 @@ namespace Project598.Screens
                 int roll = RNG.GetInt(1, 10);
                 if (roll == 9 && _timer >= 100)
                 {
-                    battle = true;
+                    _battle = true;
                     Enemy enemy = new Slime();
-                    ScreenManager.AddScreen(new BattleScreen(_player, enemy, _shader, () => battle = false));
+                    ScreenManager.AddScreen(new BattleScreen(_player, enemy, _shader, () => _battle = false));
                     _timer = 0;
 
                 }
             }
-            if (!battle)
+            if (!_battle)
             {
                 _timer += 1;
             }
@@ -172,6 +172,10 @@ namespace Project598.Screens
                     _player.Mental = MentalCondition.Normal;
                     _player.DepressedMeter = -_player.DepressedMeter;
                 }
+            }
+            if (input.B)
+            {
+                _player.HP += 50;
             }
 
             foreach (NPC npc in _currentMap.NPCs)
@@ -217,7 +221,7 @@ namespace Project598.Screens
                 spriteBatch.Begin(effect: _shader);
                 _currentMap.Draw(gameTime, ScreenManager.SpriteBatch);
                 _player.Draw(gameTime, ScreenManager.SpriteBatch);
-                spriteBatch.DrawString(FontManager.DefaultFont, $"DepressedMeter: {_player.DepressedMeter}", new Vector2(width / 2, height / 2), Color.Red);
+                spriteBatch.DrawString(FontManager.DefaultFont, $"DepressedMeter: {_player.DepressedMeter}", new Vector2(width * (3 / 4), height * (3 / 4)), Color.Red);
             }
             else
             {

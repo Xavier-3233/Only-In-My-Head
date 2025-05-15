@@ -11,10 +11,10 @@ namespace Project598
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
-        private Vector2 _brickPosition;
-        private Texture2D _TestBrick;
-        private Effect _grayscaleEffect;
-        private Effect _testing;
+        //private Vector2 _brickPosition;
+        //private Texture2D _TestBrick;
+        //private Effect _grayscaleEffect;
+        private Effect _grayShader;
         private ScreenManager _screenManager;
         //private GrayShader grayShader;
 
@@ -35,16 +35,16 @@ namespace Project598
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            _brickPosition = new Vector2((_graphics.GraphicsDevice.Viewport.Width - 32) / 2, (_graphics.GraphicsDevice.Viewport.Height - 32) / 2);
+            //_brickPosition = new Vector2((_graphics.GraphicsDevice.Viewport.Width - 32) / 2, (_graphics.GraphicsDevice.Viewport.Height - 32) / 2);
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            _TestBrick = Content.Load<Texture2D>("Brick");
-            _grayscaleEffect = Content.Load<Effect>("GrayscaleEffect");
-            _testing = Content.Load<Effect>("Test");
+            //_TestBrick = Content.Load<Texture2D>("Brick");
+            //_grayscaleEffect = Content.Load<Effect>("GrayscaleEffect");
+            _grayShader = Content.Load<Effect>("Test");
             FontManager.LoadContent(Content);
             //_font = Content.Load<SpriteFont>("NothingYouCouldDo");
 

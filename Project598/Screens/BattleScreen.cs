@@ -38,7 +38,13 @@ namespace Project598.Screens
 
         private bool _playerTurn = true;
 
-        private int timer = 0;
+        private double _timer = 0;
+
+        private double _flashTimer = FLASH_DURATION;
+
+        private const double FLASH_DURATION = 1.0;
+
+        private Texture2D _redBox;
 
         private Action _exit;
 
@@ -70,6 +76,8 @@ namespace Project598.Screens
             _locations[1] = new Vector2(623, 373);
             _locations[2] = new Vector2(136, 506);
             _locations[3] = new Vector2(623, 506);
+            _redBox = new Texture2D(ScreenManager.GraphicsDevice, 1, 1);
+            _redBox.SetData(new[] { Color.Red * 0.5f });
         }
 
         public override void Unload()
@@ -80,6 +88,19 @@ namespace Project598.Screens
         public override void Update(GameTime gameTime, bool unfocused, bool covered)
         {
             base.Update(gameTime, unfocused, covered);
+            
+            if (_timer >= 3)
+            {
+                if (_player.HP <= 0)
+                {
+                    _player.HP = 1;
+                    Exit();
+                }
+                else
+                {
+                    Exit();
+                }
+            }
 
             if (IsActive)
             {
@@ -100,6 +121,14 @@ namespace Project598.Screens
                 
                 if (damage < 0) damage = 0;
                 _player.HP -= damage;
+                _player.Hit = true;
+
+                if (!_enemy.Hit) _flashTimer -= gameTime.ElapsedGameTime.TotalSeconds;
+                if (_flashTimer <= 0)
+                {
+                    _player.Hit = false;
+                    _flashTimer = FLASH_DURATION;
+                }
                 _playerTurn = true;
                 if (_option == 1) _player.Defense -= 5;
             }
@@ -108,37 +137,34 @@ namespace Project598.Screens
             {
 
             }
-            /*if (_enemy.GetHP() <= 0)
-            {
-                if (timer >= 100)
-                {
-                    Exit();
-                }
-                timer++;
-            }*/
         }
 
         public override void HandleInput(GameTime gameTime, InputManager input)
         {
             if (input.B && _enemy.GetHP() <= 0)
             {
-                //Unload();
                 _player.Money += _enemy.GetMoney();
                 Exit();
+            }
+
+            if (_player.Hit && _enemy.GetHP() >= 0)
+            {
+                if (!_enemy.Hit) _flashTimer -= gameTime.ElapsedGameTime.TotalSeconds;
+                if (_flashTimer <= 0)
+                {
+                    _player.Hit = false;
+                    _flashTimer = FLASH_DURATION;
+                }
             }
             if (_playerTurn && (_enemy.GetHP() > 0 && _player.HP > 0))
             {
                 if (input.Left && _option > 0)
                 {
-                    // _optionSelect[_option];
                     _option--;
-                    //options[screenIndex].IsSelected = true;
                 }
                 if (input.Right && _option < 3)
                 {
-                    //options[screenIndex].IsSelected = false;
                     _option++;
-                    //options[screenIndex].IsSelected = true;
                 }
                 if (input.Up && (_option == 2 || _option == 3))
                 {
@@ -178,54 +204,32 @@ namespace Project598.Screens
                 }
                 
             }
-            //else
-            //{
-
-                
-
-                /*int enemyChoice = RNG.GetInt(0, 4);
-                switch (enemyChoice)
-                {
-                    case 0:
-                        int damage = _enemy.GetStrength() - _player.Defense;
-                        if (damage < 0) damage = 0;
-                        _player.HP -= damage;
-                        
-                        break;
-                    case 1:
-                        _player.Defense *= 2;
-                        break;
-                    case 2:
-                        _player.HP += 5;
-                        break;
-                    case 3:
-                        int flee = RNG.GetInt(0, 10);
-                        if (flee >= 5)
-                        {
-                            _player.Mental = MentalCondition.Depressed;
-                            Exit();
-                        }
-                        break;
-                }*/
-            //}
-            
-
         }
 
         public override void Draw(GameTime gameTime)
         {
             ScreenManager.GraphicsDevice.Clear(Color.Black);
-
+            
             var spriteBatch = ScreenManager.SpriteBatch;
             if (_player.Mental == MentalCondition.Depressed)
             {
                 spriteBatch.Begin(effect: _shader);
+                if (_player.Hit && !_enemy.Hit && _enemy.GetHP() > 0)
+                {
+                    spriteBatch.Draw(_redBox, new Rectangle(0, 0, 960, 640), Color.White);
+                }
+                
                 _enemy.Draw(gameTime, spriteBatch);
                 if (_player.HP <= 0 || _enemy.GetHP() <= 0)
                 {
+                    _timer += gameTime.ElapsedGameTime.TotalSeconds;
                     if (_player.HP <= 0)
                     {
                         spriteBatch.DrawString(FontManager.DefaultFont, "You Lose....", new Vector2(480, 320), Color.White);
+                    }
+                    else
+                    {
+                        spriteBatch.DrawString(FontManager.DefaultFont, "You Win!", new Vector2(480, 320), Color.White);
                     }
                 }
                 else
@@ -243,12 +247,21 @@ namespace Project598.Screens
             {
                 
                 spriteBatch.Begin();
+                if (_player.Hit && !_enemy.Hit && _enemy.GetHP() > 0)
+                {
+                    spriteBatch.Draw(_redBox, new Rectangle(0, 0, 960, 640), Color.White);
+                }
                 _enemy.Draw(gameTime, spriteBatch);
                 if (_player.HP <= 0 || _enemy.GetHP() <= 0)
                 {
+                    _timer += gameTime.ElapsedGameTime.TotalSeconds;
                     if (_player.HP <= 0)
                     {
                         spriteBatch.DrawString(FontManager.DefaultFont, "You Lose....", new Vector2(480, 320), Color.White);
+                    }
+                    else
+                    {
+                        spriteBatch.DrawString(FontManager.DefaultFont, "You Win!", new Vector2(480, 320), Color.White);
                     }
                 }
                 else
@@ -260,33 +273,11 @@ namespace Project598.Screens
                         spriteBatch.Draw(_menuOption.GetValueOrDefault(i), _locations[i], null, selected, 0, Vector2.Zero, 0.5f, SpriteEffects.None, 0);
                     }
                 }
-                
-                
-                /*switch (_option)
-                {
-                    case 0:
-                        spriteBatch.Draw(_attack, new Vector2(136, 373), null, Color.Navy, 0, Vector2.Zero, 0.5f, SpriteEffects.None, 0);
-                        break;
-                    case 1:
-                        spriteBatch.Draw(_guard, new Vector2(623, 373), null, Color.Navy, 0, Vector2.Zero, 0.5f, SpriteEffects.None, 0);
-                        break;
-                    case 2:
-                        spriteBatch.Draw(_item, new Vector2(136, 506), null, Color.Navy, 0, Vector2.Zero, 0.5f, SpriteEffects.None, 0);
-                        break;
-                    case 3:
-                        spriteBatch.Draw(_flee, new Vector2(623, 506), null, Color.Navy, 0, Vector2.Zero, 0.5f, SpriteEffects.None, 0);
-                        break;
-                }
-                if (_option != )
-                spriteBatch.Draw(_attack, new Vector2(136, 373), null, Color.White, 0, Vector2.Zero, 0.5f, SpriteEffects.None, 0); 
-                spriteBatch.Draw(_guard, new Vector2(623, 373), null, Color.White, 0, Vector2.Zero, 0.5f, SpriteEffects.None, 0);
-                spriteBatch.Draw(_item, new Vector2(136, 506), null, Color.White, 0, Vector2.Zero, 0.5f, SpriteEffects.None, 0);
-                spriteBatch.Draw(_flee, new Vector2(623, 506), null, Color.White, 0, Vector2.Zero, 0.5f, SpriteEffects.None, 0);*/
 
-                //136.67f, 373.33f, 623.34f, 506.66f
             }
 
-
+            //spriteBatch.DrawString(FontManager.DefaultFont, $"{_flashTimer}", new Vector2(960 / 2, 640 / 2), Color.White);
+            //spriteBatch.DrawString(FontManager.DefaultFont, $"{_enemy.Hit}", new Vector2(960 / 3, 640 / 3), Color.Gold);
             spriteBatch.End();
 
         }

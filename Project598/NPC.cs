@@ -49,7 +49,7 @@ namespace Project598
             {
                 { "Normal", new List<string> { "Welcome, Traveler!", "Having trouble finding something you want?", "Nothing really happens in this town of ours."} },
                 { "Depressed", new List<string> { "Oh.....Another Traveler.......", "Still here?", "A foolish j ourney you are on."} },
-                { "Encouragement", new List<string> { "Hope you have a Great Day!", "Life g ets better, so don't give up.", "You got this!"} }
+                { "Encouragement", new List<string> { "Hope you have a Great Day!", "Life g ets better, so don't g ive up.", "You g ot this!"} }
 
             };
             Dialogue = new Dialogue(temp);

@@ -13,7 +13,9 @@ namespace Project598.Screens
     {
         private ContentManager _content;
 
-        private List<MenuOption> options;
+        //private List<MenuOption> options;
+
+        private string[] _options = new string[2];
 
         private int screenIndex = 0;
 
@@ -26,11 +28,13 @@ namespace Project598.Screens
         public override void Activate()
         {
             if (_content == null) _content = new ContentManager(ScreenManager.Game.Services, "Content");
-            options = new List<MenuOption>()
+            _options[0] = "Start";
+            _options[1] = "Credits";
+            /*options = new List<MenuOption>()
             {
-                new MenuOption("Start", new Credits()) {IsSelected = true},
-                new MenuOption("Credits", new Credits()) {IsSelected = true }
-            };
+                new MenuOption("Start", new WorldScreen()) {IsSelected = true},
+                new MenuOption("Credits", new Credits()) {IsSelected = false }
+            };*/
             
 
         }
@@ -58,12 +62,9 @@ namespace Project598.Screens
             }
             if (input.A)
             {
-                if (options[screenIndex].IsScreenSelection)
+                if (screenIndex == 0)
                 {
-                    ScreenManager.AddScreen(options[screenIndex].Screen);
-                    GameScreen[] mm = ScreenManager.GetScreens();
-                    int a = mm.Length;
-
+                    ScreenManager.AddScreen(new WorldScreen(input));
                 }
             }
             if (input.C)
@@ -72,15 +73,15 @@ namespace Project598.Screens
             }
             if ((input.Up || input.Left) && screenIndex > 0)
             {
-                options[screenIndex].IsSelected = false;
+                //options[screenIndex].IsSelected = false;
                 screenIndex--;
-                options[screenIndex].IsSelected = true;
+                //options[screenIndex].IsSelected = true;
             }
-            if ((input.Down || input.Right) && screenIndex < options.Count - 1)
+            if ((input.Down || input.Right) && screenIndex < _options.Length)
             {
-                options[screenIndex].IsSelected = false;
+                //options[screenIndex].IsSelected = false;
                 screenIndex++;
-                options[screenIndex].IsSelected = true;
+                //options[screenIndex].IsSelected = true;
             }
 
         }
@@ -92,18 +93,30 @@ namespace Project598.Screens
             var spriteBatch = ScreenManager.SpriteBatch;
 
             spriteBatch.Begin();
-            spriteBatch.DrawString(FontManager.DefaultFont, "Hi!", new Vector2(200, 200), Color.White);
-            
-
-            int i = 0;
-            foreach (MenuOption option in options)
+            var textAdjustment = FontManager.DefaultFont.MeasureString("Only in my Head");
+            spriteBatch.DrawString(FontManager.DefaultFont, "Only in my Head", new Vector2((ScreenManager.GraphicsDevice.Viewport.Width - textAdjustment.X) / 2, 100), Color.White);
+            for (int i = 0; i < _options.Length; i++)
+            {
+                var textSize = FontManager.DefaultFont.MeasureString(_options[i]);
+                if (i == screenIndex)
+                {
+                    spriteBatch.DrawString(FontManager.DefaultFont, _options[i], new Vector2((ScreenManager.GraphicsDevice.Viewport.Width - textSize.X) / 2, 
+                        (ScreenManager.GraphicsDevice.Viewport.Height - textSize.Y) / 3 + (100 * (i + 1))), Color.LimeGreen);
+                }
+                else
+                {
+                    spriteBatch.DrawString(FontManager.DefaultFont, _options[i], new Vector2((ScreenManager.GraphicsDevice.Viewport.Width - textSize.X) / 2, 
+                        (ScreenManager.GraphicsDevice.Viewport.Height - textSize.Y) / 3 + (100 * (i + 1))), Color.White);
+                }
+            }
+            /*foreach (MenuOption option in options)
             {
                 //size = FontText.SizeOf(option.Name, "PublicPixelMedium");
-                option.Draw(spriteBatch, new Vector2(240, (200 * i * 2)));
+                option.Draw(spriteBatch, new Vector2(ScreenManager.GraphicsDevice.Viewport.Width / 3, (100 * i * 2)));
                 //spriteBatch.DrawString(FontManager.DefaultFont, option.Name, new Vector2(200, 200 + (i * 50)), Color.White);
                 i++;
                 
-            }
+            }*/
             spriteBatch.End();
             
         }

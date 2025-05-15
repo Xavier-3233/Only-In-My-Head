@@ -129,10 +129,10 @@ namespace Project598.Screens
             {
                 Vector2 size = font.MeasureString(word);
 
-                // Check if adding the word exceeds the maxWidth
+
                 if (lineWidth + size.X > maxWidth - 10)
                 {
-                    wrappedText.Append("\n"); // New line
+                    wrappedText.Append("\n");
                     lineWidth = 0;
                 }
 

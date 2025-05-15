@@ -140,13 +140,12 @@ namespace Project598
 
         public int GetTileNumber(int x, int y)
         {
-            if (x >= 32 && y > 32)
+            if (x >= 32 && y >= 32 && y < 640)
             {
                 return _mapData.Data[y / 32, x / 32];
             }
 
             return 0;
-            //Console.WriteLine($"Tile at index {index} is at Row: {row}, Column: {column}");
         }
 
         public void AddNPC(NPC npc)
