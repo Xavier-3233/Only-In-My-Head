@@ -1,0 +1,1 @@
+This is my RPG that focuses on the player's mental condition called, "Only in my Head." As of right now, the game is in very rough beta state. There is a small snippet with unpolished ideas. More features, maps, characters, etc., are in development. I plan on continuing to work on the project throughout the months, improving it slowly overtime.
